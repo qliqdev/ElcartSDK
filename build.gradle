@@ -20,8 +20,12 @@ publishing {
     }
     repositories {
         maven {
-            // Use a local directory or specify a remote repository URL
-            url = uri("${buildDir}/repo")
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/qliqdev/ElcartSDK")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
         }
     }
 }
@@ -31,5 +35,4 @@ repositories {
 }
 
 dependencies {
-    // Define any dependencies your library might have, if needed
 }
