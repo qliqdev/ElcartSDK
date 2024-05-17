@@ -1,0 +1,35 @@
+plugins {
+    id 'maven-publish'
+    id 'java'
+}
+
+group = 'com.getcapacitor'
+version = '0.1'
+
+publishing {
+    publications {
+        aar(MavenPublication) {
+            groupId = 'com.getcapacitor'
+            artifactId = 'elcartsdk'
+            version = '0.1'
+
+            artifact(file('libs/ElcartSDK.aar')) {
+                extension = 'aar'
+            }
+        }
+    }
+    repositories {
+        maven {
+            // Use a local directory or specify a remote repository URL
+            url = uri("${buildDir}/repo")
+        }
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // Define any dependencies your library might have, if needed
+}
