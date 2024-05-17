@@ -4,7 +4,14 @@ plugins {
 }
 
 group = 'com.getcapacitor'
-version = '0.1'
+version = '0.2'
+
+// Load properties from local.properties
+def localProperties = new Properties()
+file('local.properties').withInputStream { localProperties.load(it) }
+def gprUser = localProperties.getProperty('gpr.user') ?: System.getenv('GITHUB_USERNAME')
+def gprKey = localProperties.getProperty('gpr.key') ?: System.getenv('GITHUB_TOKEN')
+
 
 publishing {
     publications {
@@ -23,8 +30,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/qliqdev/ElcartSDK")
             credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+                username = gprUser
+                password = gprKey
             }
         }
     }
@@ -35,4 +42,5 @@ repositories {
 }
 
 dependencies {
+    // Define any dependencies your library might have, if needed
 }
